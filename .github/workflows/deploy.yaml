@@ -26,15 +26,15 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build Docker image
-        run: docker build -t web-demo .
+        run: docker build --no-cache -t dockerv1 .
 
-      - name: Tag Docker image
+      - name: Tag Docker image with commit SHA
         run: |
-          docker tag web-demo:latest ${{ steps.login-ecr.outputs.registry }}/web-demo:latest
+          docker tag dockerv1:latest ${{ steps.login-ecr.outputs.registry }}/web-demo:${{ github.sha }}
 
       - name: Push Docker image to ECR
         run: |
-          docker push ${{ steps.login-ecr.outputs.registry }}/web-demo:latest
+          docker push ${{ steps.login-ecr.outputs.registry }}/web-demo:${{ github.sha }}
 
       - name: Deploy to ECS
         run: |
