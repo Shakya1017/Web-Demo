@@ -39,6 +39,7 @@ jobs:
       - name: Deploy to ECS
         run: |
           aws ecs update-service \
-            --cluster my-ecs-cluster \
-            --service my-ecs-service \
-            --force-new-deployment
+            --cluster cooperative-bee-v6rwk0 \
+            --service testecs-service-zctsarr4 \
+            --force-new-deployment \
+            --region us-east-1
